@@ -1,41 +1,59 @@
 const next = document.querySelector('#next')
 const prev = document.querySelector('#prev')
-const circle = document.querySelectorAll('.circle')
+const circles = document.querySelectorAll('.circle')
 const progressBar = document.querySelector('#progress')
 
 currentActive = 1
 
 next.addEventListener('click', (e) => {
-  e.preventDefault()
-  if (currentActive <= 3) {
-    circle[currentActive].classList.add('active')
-    progressBar.style.width = `${33*currentActive}%`
+  //increment currentActive by 1 while pressing Next, until reached max number of circle
+  if (currentActive < circles.length) {
     currentActive++
   }
-  if (currentActive > 3) {
-    next.disabled = true
-    next.classList.add('disabled')
-  }
-  if (currentActive > 1) {
-    prev.classList.remove('disabled')
-    prev.disabled = false
-  }
+
+  update()
+
 })
 
+//decrement currentActive by 1 while pressing Prev, until reached 1 (min number of circle)
 prev.addEventListener('click', (e) => {
-  e.preventDefault()
   if (currentActive > 1) {
-    circle[currentActive - 1].classList.remove('active')
-    progressBar.style.width = `${33* (currentActive-2)}%`
     currentActive--
   }
-  if (currentActive < 2) {
-    prev.disabled = true
-    prev.classList.add('disabled')
-  }
-  if (currentActive <= 3) {
-    next.classList.remove('disabled')
-    next.disabled = false
-  }
+
+  update()
 
 })
+
+
+// function to update state of circles | progress bar | buttons
+function update() {
+
+  // add/remove blue color of circles
+  circles.forEach((circle, index) => {
+    if (index < currentActive) {
+      circle.classList.add('active')
+    } else {
+      circle.classList.remove('active')
+    }
+  })
+
+  // count all colored circles
+  let activeCircles = document.querySelectorAll('.circle.active')
+  // change width of progress bar : (number of space between active circle(s)) / (number of total spaces) * 100 %
+  progressBar.style.width = (activeCircles.length - 1) / (circles.length - 1) * 100 + '%'
+
+  // disable or not Button if we reached start or end of the progress bar
+  if (currentActive === 1) {
+    prev.disabled = true
+    prev.classList.add('disabled')
+  } else if (currentActive === 6) {
+    next.disabled = true
+    next.classList.add('disabled')
+  } else {
+    next.disabled = false
+    next.classList.remove('disabled')
+    prev.disabled = false
+    prev.classList.remove('disabled')
+  }
+}
