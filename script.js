@@ -43,17 +43,21 @@ function update() {
   // change width of progress bar : (number of space between active circle(s)) / (number of total spaces) * 100 %
   progressBar.style.width = (activeCircles.length - 1) / (circles.length - 1) * 100 + '%'
 
-  // disable or not Button if we reached start or end of the progress bar
+  // disable Prev button if we reached 1rst step.
   if (currentActive === 1) {
     prev.disabled = true
     prev.classList.add('disabled')
-  } else if (currentActive === 6) {
+  } else {
+    prev.disabled = false
+    prev.classList.remove('disabled')
+  }
+  
+  // disable Next button if we reached last step.
+  if (currentActive === circles.length) {
     next.disabled = true
     next.classList.add('disabled')
   } else {
     next.disabled = false
     next.classList.remove('disabled')
-    prev.disabled = false
-    prev.classList.remove('disabled')
   }
 }
