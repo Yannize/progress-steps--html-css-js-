@@ -1,0 +1,104 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --grey: rgb(180, 180, 180);
+  --blue: rgb(18, 156, 236);
+  --btn-pressed: rgb(83, 18, 236);
+  --transition: 0.7s;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container {
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.progress-container:hover>.progress {
+  background: var(--blue);
+  width: 33%;
+}
+
+
+.progress-container {
+  display: flex;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+}
+
+.progress {
+  width: 0%;
+  height: 4px;
+  background-color: var(--blue);
+  position: absolute;
+  z-index: -1;
+  transition: var(--transition);
+}
+
+.circle {
+  font-size: 20px;
+  font-weight: bold;
+  background: white;
+  border: 3px solid var(--grey);
+  width: 30px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  color: var(--grey);
+  transition: var(--transition);
+}
+
+.active {
+  border-color: var(--blue);
+  color: var(--blue);
+}
+
+.actions {
+  width: 35%;
+  display: flex;
+  justify-content: space-between;
+  margin: 50px 0 0 0;
+  cursor: pointer;
+}
+
+.btn {
+  padding: 10px 20px;
+  background-color: var(--blue);
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 7px;
+  transition: 0.1s;
+}
+
+.btn:active {
+  border: none;
+  outline: none;
+  background: var(--btn-pressed);
+}
+
+.btn:focus {
+  border: none;
+  outline: none;
+}
+
+.disabled {
+  background-color: var(--grey);
+  cursor: not-allowed;
+}
